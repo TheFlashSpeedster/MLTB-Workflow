@@ -1,0 +1,59 @@
+name: Demploy
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  # Change these values if you have forked it for your own works
+  GitHubMail: "dipeshmirror@gmail.com"
+  GitHubName: "dp0148755" 
+  Branch: "master"
+
+jobs:
+
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait and Early Trigger next workflow
+        run: |
+          # Waits 300 minutes 
+          while ((${TIME_LEFT:=300} > 0)); do
+            printf "Please wait %.f minutes ...\n" "${TIME_LEFT}"
+            sleep 5m
+            TIME_LEFT=$((TIME_LEFT - 5))
+          done
+          # Triggers same workflow before the other job finishes
+          curl -X POST --header "Authorization: token ${{ secrets.GH_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/mirror-bot.yml/dispatches -d '{"ref":"main"}'
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Set Git Configs & Secrets
+        run: |
+          git config --global user.email ${GitHubMail}
+          git config --global user.name ${GitHubName}
+          git config --global credential.helper store
+          echo "https://${GitHubName}:${{ secrets.GH_TOKEN }}@github.com" > ~/.git-credentials
+      # Cleanup The Actions Workspace Using Custom Composite Run Actions
+      - uses: rokibhasansagar/slimhub_actions@main
+
+      - name: Clone The Secret Mirror Repository
+        run: |
+          git clone https://${{ secrets.GH_TOKEN}}@github.com/${{ secrets.REPO }} -b ${Branch} source
+      - name: Compile The Mirroring Docker Container
+        run: |
+          cd source || exit 1
+          docker container prune --force || true
+          docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
+          docker image ls
+      - name: running Docker
+        timeout-minutes: 325
+        continue-on-error: true
+        run: |
+          docker run --env CONFIG_FILE_URL=${{ secrets.CONFIG_FILE_URL }} mirror-bot
