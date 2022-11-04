@@ -1,34 +1,61 @@
-# mirrorbot-workflow
+# MLTB-Workflow By [@FlashSpeedster](https://Telegram.me/FlashSpeedster)
 
-You can use [this repo](https://gitHub.com/Reflection-Mirror/Reflection-Mirror) as a template
+## 📊 FEATURES 📊
+- Total DISK: 80 GB
+- DISK Free: 50-70 GB
+- Bot Speed: Fast As F...
 
-First setup everything then push to your private Repository
+## ⚠️ NOTES ⚠️
 
-Then Fork this Repo
+- 🤩 Bot will Start in 4-6 mins after Deploy
+- ♻️ Bot will Auto-Restart on each 6 hours
+- 🚫 Don't Use Workflow in your Main GITHUB ACCOUNT
+- 👮‍♂️ Be Ready for GitHub Account Suspension 😣
 
-Setup secrets in settings --> Secrets
+# DEPLOY GUIDE 👇
+<details>
+  <summary><b>1. Fill "mirror-bot.yml"</b></summary>
 
 ```
-GH_TOKEN :- Your github personal access token, from https://github.com/settings/tokens
-REPO :- Your Secret Repository, as in "<reponame>"
-GHUSER :- Your GitHub UserName
-GHMAIL :- You GitHub Email Address
+GitHubMail: "your github email"
+  GitHubName: "your github username" 
+  Branch: "your mltb repo branch"
 ```
+</details>
 
-And That's it.
+<details>
+  <summary><b>2. Fill Secrets</b></summary>
 
-©ElytrA8
+(settings>secrets>actions)
 
-# Terms Of Use 
+- <b>GH_TOKEN</b> : ```ghp_xxxxxxxxxx```
+[Generate Your TOKEN](https://github.com/settings/tokens)
 
-This is Only For debugging Purposes.
+- <b>REPO</b> : ```TheFlashSpeedster/MLTB-Repo```
 
-THE workflow Runs Automatically Without Loop After Every 5 Or 6 Hours.
 
-If you use It For Deploying Your Account Might Get Ban.
+- <b>GHUSER</b> : ```TheFlashSpeedster```
+Your Github Username
 
-We Are Not Responsible For Any Action Taken By GitHub.
+- <b>GHMAIL</b> : ```example@gmail.com```
+Your Github Email
 
-# Credits
+</details>
 
-[rokibhasansagar](https://github.com/rokibhasansagar) & [henloboi](https://github.com/JamieHoSzeYui) for infinite help.
+<details>
+  <summary><b>3. Enable Workflow</b></summary>
+
+- Go To Settings > Actions > General 
+- See "Action permission"
+- Change it to "Allow all actions and reusable workflows"
+- Click SAVE 
+</details>
+
+<details>
+  <summary><b>4. FINALLY RUN WORKFLOW</b></summary>
+
+- Go to Actions Tab
+- Click on All Workflows
+- Choose "MLTB-Workflow Deploy"
+- Run Workflow (master)
+</details>
