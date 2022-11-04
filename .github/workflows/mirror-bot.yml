@@ -1,4 +1,4 @@
-name: Demploy
+name: MLTB-Workflow Deploy
 
 on:
   workflow_dispatch:
